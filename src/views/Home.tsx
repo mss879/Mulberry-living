@@ -498,7 +498,7 @@ export default function Home() {
                   className="image-zoom rounded-2xl overflow-hidden"
                 >
                   <img
-                    src={poolImage}
+                    src={poolImage.src}
                     alt="Experience 1"
                     className="w-full h-48 object-cover"
                   />
@@ -511,7 +511,7 @@ export default function Home() {
                   className="image-zoom rounded-2xl overflow-hidden"
                 >
                   <img
-                    src={terraceImage}
+                    src={terraceImage.src}
                     alt="Experience 2"
                     className="w-full h-64 object-cover"
                   />
@@ -526,7 +526,7 @@ export default function Home() {
                   className="image-zoom rounded-2xl overflow-hidden"
                 >
                   <img
-                    src={interiorImage}
+                    src={interiorImage.src}
                     alt="Experience 3"
                     className="w-full h-64 object-cover"
                   />
@@ -539,7 +539,7 @@ export default function Home() {
                   className="image-zoom rounded-2xl overflow-hidden"
                 >
                   <img
-                    src={bedroomImage}
+                    src={bedroomImage.src}
                     alt="Experience 4"
                     className="w-full h-48 object-cover"
                   />

@@ -10,6 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import type { Database } from '@/integrations/supabase/types';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -45,7 +46,7 @@ export default function PropertyManagement() {
 
   // Update stay mutation
   const updateStay = useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: any }) => {
+    mutationFn: async ({ id, updates }: { id: string; updates: Database['public']['Tables']['stays']['Update'] }) => {
       const { error } = await supabase
         .from('stays')
         .update(updates)
@@ -70,7 +71,7 @@ export default function PropertyManagement() {
   });
 
   // Toggle individual unit availability
-  const handleToggleUnit = async (stay: any, unitIndex: number) => {
+  const handleToggleUnit = async (stay: Database['public']['Tables']['stays']['Row'], unitIndex: number) => {
     const currentAvailable = stay.inventory_available || 0;
     const total = stay.inventory_total || 1;
     
@@ -112,7 +113,7 @@ export default function PropertyManagement() {
     }
   };
 
-  const openEditDialog = (stay: any) => {
+  const openEditDialog = (stay: Database['public']['Tables']['stays']['Row']) => {
     setEditingStay(stay.id);
     setEditForm({
       title: stay.title || '',

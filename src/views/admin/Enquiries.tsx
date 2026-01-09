@@ -44,6 +44,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -74,7 +75,7 @@ export default function AdminEnquiries() {
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
-  const [selectedEnquiry, setSelectedEnquiry] = useState<any | null>(null);
+  const [selectedEnquiry, setSelectedEnquiry] = useState<Database['public']['Tables']['enquiries']['Row'] | null>(null);
   const [internalNotes, setInternalNotes] = useState("");
 
   // Fetch enquiries
@@ -92,7 +93,7 @@ export default function AdminEnquiries() {
 
   // Update enquiry mutation
   const updateEnquiry = useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: any }) => {
+    mutationFn: async ({ id, updates }: { id: string; updates: Database['public']['Tables']['enquiries']['Update'] }) => {
       const { error } = await supabase
         .from('enquiries')
         .update(updates)
@@ -141,7 +142,7 @@ export default function AdminEnquiries() {
     }
   };
 
-  const openEnquiryDetail = (enquiry: any) => {
+  const openEnquiryDetail = (enquiry: Database['public']['Tables']['enquiries']['Row']) => {
     setSelectedEnquiry(enquiry);
     setInternalNotes(enquiry.internal_notes || "");
   };

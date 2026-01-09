@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -76,7 +77,7 @@ export default function AdminBookings() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
   const [stayFilter, setStayFilter] = useState<string>("all");
-  const [selectedBooking, setSelectedBooking] = useState<any | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<Database['public']['Tables']['bookings']['Row'] | null>(null);
   const [internalNotes, setInternalNotes] = useState("");
 
   // Fetch bookings
@@ -107,7 +108,7 @@ export default function AdminBookings() {
 
   // Update booking mutation
   const updateBooking = useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: any }) => {
+    mutationFn: async ({ id, updates }: { id: string; updates: Database['public']['Tables']['bookings']['Update'] }) => {
       const { error } = await supabase
         .from('bookings')
         .update(updates)
@@ -168,7 +169,7 @@ export default function AdminBookings() {
     }
   };
 
-  const openBookingDetail = (booking: any) => {
+  const openBookingDetail = (booking: Database['public']['Tables']['bookings']['Row']) => {
     setSelectedBooking(booking);
     setInternalNotes(booking.internal_notes || "");
   };

@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
@@ -255,7 +256,7 @@ export default function AdminDashboard() {
                 <p className="text-muted-foreground text-center py-8">No bookings yet</p>
               ) : (
                 <div className="space-y-4">
-                  {recentBookings.map((booking: any) => (
+                  {recentBookings.map((booking: Database['public']['Tables']['bookings']['Row']) => (
                     <div
                       key={booking.id}
                       className="flex items-center justify-between p-4 rounded-lg bg-muted/50"
@@ -309,7 +310,7 @@ export default function AdminDashboard() {
                 <p className="text-muted-foreground text-center py-8">No enquiries yet</p>
               ) : (
                 <div className="space-y-4">
-                  {recentEnquiries.map((enquiry: any) => (
+                  {recentEnquiries.map((enquiry: Database['public']['Tables']['enquiries']['Row']) => (
                     <div
                       key={enquiry.id}
                       className="flex items-center justify-between p-4 rounded-lg bg-muted/50"

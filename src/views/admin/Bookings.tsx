@@ -69,6 +69,11 @@ const stayIcons: { [key: string]: React.ComponentType<{ className?: string }> } 
   'apartment': HomeIcon,
 };
 
+// Type for booking with joined stays data
+type BookingWithStay = Database['public']['Tables']['bookings']['Row'] & {
+  stays: { id: string; title: string; slug: string; inventory_type: string | null } | null;
+};
+
 export default function AdminBookings() {
   const searchParams = useSearchParams();
   const initialStatus = searchParams.get('status') || 'all';
@@ -77,7 +82,7 @@ export default function AdminBookings() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
   const [stayFilter, setStayFilter] = useState<string>("all");
-  const [selectedBooking, setSelectedBooking] = useState<Database['public']['Tables']['bookings']['Row'] | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<BookingWithStay | null>(null);
   const [internalNotes, setInternalNotes] = useState("");
 
   // Fetch bookings
@@ -170,7 +175,7 @@ export default function AdminBookings() {
     }
   };
 
-  const openBookingDetail = (booking: Database['public']['Tables']['bookings']['Row']) => {
+  const openBookingDetail = (booking: BookingWithStay) => {
     setSelectedBooking(booking);
     setInternalNotes(booking.internal_notes || "");
   };

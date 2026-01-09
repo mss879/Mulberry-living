@@ -36,6 +36,15 @@ const stayIcons: { [key: string]: React.ComponentType<{ className?: string }> } 
   'apartment': HomeIcon,
 };
 
+// Types for bookings/enquiries with joined stays data
+type BookingWithStay = Database['public']['Tables']['bookings']['Row'] & {
+  stays: { title: string; slug: string } | null;
+};
+
+type EnquiryWithStay = Database['public']['Tables']['enquiries']['Row'] & {
+  stays: { title: string; slug: string } | null;
+};
+
 export default function AdminDashboard() {
   // Fetch bookings
   const { data: bookings, isLoading: loadingBookings } = useQuery({
@@ -256,7 +265,7 @@ export default function AdminDashboard() {
                 <p className="text-muted-foreground text-center py-8">No bookings yet</p>
               ) : (
                 <div className="space-y-4">
-                  {recentBookings.map((booking: Database['public']['Tables']['bookings']['Row']) => (
+                  {recentBookings.map((booking: BookingWithStay) => (
                     <div
                       key={booking.id}
                       className="flex items-center justify-between p-4 rounded-lg bg-muted/50"
@@ -310,7 +319,7 @@ export default function AdminDashboard() {
                 <p className="text-muted-foreground text-center py-8">No enquiries yet</p>
               ) : (
                 <div className="space-y-4">
-                  {recentEnquiries.map((enquiry: Database['public']['Tables']['enquiries']['Row']) => (
+                  {recentEnquiries.map((enquiry: EnquiryWithStay) => (
                     <div
                       key={enquiry.id}
                       className="flex items-center justify-between p-4 rounded-lg bg-muted/50"

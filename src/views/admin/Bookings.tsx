@@ -142,12 +142,13 @@ export default function AdminBookings() {
     }
   };
 
-  const togglePaid = async (id: string, currentPaid: boolean) => {
+  const togglePaid = async (id: string, currentPaid: boolean | null) => {
     try {
-      await updateBooking.mutateAsync({ id, updates: { paid: !currentPaid } });
+      const nextPaid = !(currentPaid ?? false);
+      await updateBooking.mutateAsync({ id, updates: { paid: nextPaid } });
       toast.success("Payment status updated");
       if (selectedBooking?.id === id) {
-        setSelectedBooking({ ...selectedBooking, paid: !currentPaid });
+        setSelectedBooking({ ...selectedBooking, paid: nextPaid });
       }
     } catch (error) {
       toast.error('Failed to update payment status');

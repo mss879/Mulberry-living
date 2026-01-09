@@ -334,7 +334,7 @@ export default function Home() {
             >
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
                 <img
-                  src={heroImage}
+                  src={heroImage.src}
                   alt="Mulberry Living amenities"
                   className="w-full h-full object-cover"
                 />
@@ -561,7 +561,7 @@ export default function Home() {
               className="relative aspect-square lg:aspect-[4/3] rounded-3xl overflow-hidden"
             >
               <img
-                src={heroImage}
+                src={heroImage.src}
                 alt="Mulberry Living location"
                 className="w-full h-full object-cover"
               />

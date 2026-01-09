@@ -560,7 +560,7 @@ export default function Booking() {
                 >
                   <div className="sticky top-28 p-6 rounded-2xl bg-card border border-border">
                     <img
-                      src={heroImage}
+                      src={heroImage.src}
                       alt="Mulberry Living"
                       className="w-full h-40 object-cover rounded-xl mb-4"
                     />

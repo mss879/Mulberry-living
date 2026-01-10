@@ -56,6 +56,14 @@ const fadeInUp = {
 
 type EnquiryStatus = 'new' | 'in_progress' | 'closed';
 
+type EnquiryWithStay = Database['public']['Tables']['enquiries']['Row'] & {
+  stays: {
+    id: string;
+    title: string;
+    slug: string;
+  } | null;
+};
+
 const statusColors: Record<EnquiryStatus, string> = {
   new: "bg-blue-500/10 text-blue-600",
   in_progress: "bg-amber-500/10 text-amber-600",
@@ -75,7 +83,7 @@ export default function AdminEnquiries() {
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
-  const [selectedEnquiry, setSelectedEnquiry] = useState<Database['public']['Tables']['enquiries']['Row'] | null>(null);
+  const [selectedEnquiry, setSelectedEnquiry] = useState<EnquiryWithStay | null>(null);
   const [internalNotes, setInternalNotes] = useState("");
 
   // Fetch enquiries
@@ -142,7 +150,7 @@ export default function AdminEnquiries() {
     }
   };
 
-  const openEnquiryDetail = (enquiry: Database['public']['Tables']['enquiries']['Row']) => {
+  const openEnquiryDetail = (enquiry: EnquiryWithStay) => {
     setSelectedEnquiry(enquiry);
     setInternalNotes(enquiry.internal_notes || "");
   };
@@ -254,9 +262,9 @@ export default function AdminEnquiries() {
                           <td className="p-4">
                             <span className={cn(
                               "px-3 py-1 rounded-full text-xs font-medium capitalize",
-                              statusColors[enquiry.status as EnquiryStatus]
+                              statusColors[(enquiry.status || 'new') as EnquiryStatus]
                             )}>
-                              {enquiry.status.replace("_", " ")}
+                              {(enquiry.status || 'new').replace("_", " ")}
                             </span>
                           </td>
                           <td className="p-4 text-muted-foreground text-sm">

@@ -336,7 +336,7 @@ export default function AdminDashboard() {
                         enquiry.status === "in_progress" && "bg-amber-500/10 text-amber-600",
                         enquiry.status === "closed" && "bg-muted text-muted-foreground"
                       )}>
-                        {enquiry.status.replace("_", " ")}
+                        {enquiry.status?.replace("_", " ") || "N/A"}
                       </span>
                     </div>
                   ))}

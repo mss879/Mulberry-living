@@ -115,14 +115,19 @@ export function Footer() {
         <div className="mt-8 flex flex-col md:flex-row justify-center items-center gap-2 text-xs text-primary-foreground/40">
            <span className="flex items-center gap-1.5">
              Made by 
-             <div className="relative h-6 w-20 grayscale hover:grayscale-0 transition-all opacity-80 hover:opacity-100">
+             <a 
+               href="https://www.arcai.agency" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               className="relative h-8 w-28 block hover:opacity-90 transition-opacity"
+             >
                  <Image 
                    src="/arc logo.png" 
                    alt="ARC AI" 
                    fill
                    className="object-contain"
                  />
-             </div>
+             </a>
            </span>
            <span className="hidden md:inline text-primary-foreground/20">|</span>
            <span>Powered by Next.js</span>

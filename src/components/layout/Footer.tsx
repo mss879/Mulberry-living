@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin, Instagram, Facebook, MessageCircle } from "lucide-react";
 
 export function Footer() {
@@ -108,6 +109,23 @@ export function Footer() {
               Admin
             </Link>
           </div>
+        </div>
+
+        {/* Attribution */}
+        <div className="mt-8 flex flex-col md:flex-row justify-center items-center gap-2 text-xs text-primary-foreground/40">
+           <span className="flex items-center gap-1.5">
+             Made by 
+             <div className="relative h-6 w-20 grayscale hover:grayscale-0 transition-all opacity-80 hover:opacity-100">
+                 <Image 
+                   src="/arc logo.png" 
+                   alt="ARC AI" 
+                   fill
+                   className="object-contain"
+                 />
+             </div>
+           </span>
+           <span className="hidden md:inline text-primary-foreground/20">|</span>
+           <span>Powered by Next.js</span>
         </div>
       </div>
     </footer>
